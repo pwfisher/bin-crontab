@@ -1,0 +1,4 @@
+MAILTO=admin@domain.tld
+* * * * * php -v
+MAILTO=admin@domain.tld
+* * * * * php -i
