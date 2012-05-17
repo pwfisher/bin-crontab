@@ -7,7 +7,7 @@ include_once 'fct/class.db.php';
 set_time_limit(0);
 
 // Get Passed Vars
-if ($argv) {
+if (isset($argv) && $argv) {
 	// get vars in unix
 	$args = parseArgs($argv);
 
