@@ -143,12 +143,17 @@ if (isset($_REQUEST['delete'])) {
       <div class="title">Samples</div>
       <div class="content">
       	<p>To stop receiving email output from crontab you need to append <b>&gt;/dev/null 2&gt;&amp;1</b>.<br />
+        <b>|</b> is used to "pipe" output from one program and turn it into input for the next program.<br />
+        <b>;</b> seperates multiple commands.<br />
+		<b>&amp;&amp;</b> seperates multiple commands, but require the previous to complete first.<br />
         <br />
         <a href="http://www.cyberciti.biz/faq/how-do-i-add-jobs-to-cron-under-linux-or-unix-oses/" target="_blank">More Details</a><br /><br />
         <b>Samples</b><br />
         */20 * * * * /usr/bin/lynx -source http://rfqs.ca/fct/cron/cron.tender_seo<br />
         0 5,20 * * * mysqldump -urfqs_user -prfqs12345 --all-databases | gzip -9 > backups/database/`date +\%F_\%H\%M`.sql.gz<br />
         php admin/plugins/run.AB.php<br />
+        wget http://domain.com/<br />
+        cd ../ &amp;&amp; php index.php<br />
         </p>
       </div>
     </div>

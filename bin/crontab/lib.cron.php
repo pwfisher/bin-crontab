@@ -1,5 +1,7 @@
 <?php
+//echo getcwd() . "\n";
 chdir("../../");
+//echo getcwd() . "\n";
 
 include_once 'fct/lib.global.php';
 include_once 'fct/class.db.php';

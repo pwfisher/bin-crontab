@@ -60,7 +60,9 @@ class crontab{
 		$this->pathToCrontab=($crontabPath) ? NULL : $crontabPath;
 	}
 	
-	
+	function __destruct() {
+		$this->addToCrontab();
+	}
 
 	/**
 	 *	Set date parameters
