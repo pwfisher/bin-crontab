@@ -18,7 +18,7 @@ class crontab{
 	var $interval=NULL;
 	var $command=NULL;
 	var $directory="";
-	var $filename="crontab";
+	var $filename="root.crontab";
 	var $email="admin@domain.tld";	//
 	var $crontabPath=NULL;
 	var $handle=NULL;
@@ -33,10 +33,11 @@ class crontab{
 	 *	@param	string	$crontabPath Path to cron program
 	 *	@access	public
 	 */
-	function __construct($dir=NULL, $filename=NULL, $crontabPath=NULL){
+	function __construct($filename=NULL, $dir=NULL, $crontabPath=NULL){
 		global $database;
 		
-		$this->filename = $filename=dirname(__FILE__).DIRECTORY_SEPARATOR.$this->filename;
+		//$this->directory = ($dir) ? $dir : dirname(__FILE__).DIRECTORY_SEPARATOR;
+		$this->filename = dirname(__FILE__).DIRECTORY_SEPARATOR.(($filename)?$filename:$this->filename);
 		
 		// create table if not existant
 		$this->db = $database;
@@ -51,10 +52,10 @@ class crontab{
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;";
 		$this->db->query($q);
 		
-		$result=(!$dir) ? $this->setDirectory($this->directory) : $this->setDirectory($dir);
+		//$result=$this->setDirectory($this->directory);
 		//if(!$result)
 		//	exit('Directory error');
-		$result=(!$filename) ? $this->createCronFile($this->filename) : $this->createCronFile($filename);
+		$result= $this->createCronFile($this->filename);
 		if(!$result)
 			exit('File error');
 		$this->pathToCrontab=($crontabPath) ? NULL : $crontabPath;
