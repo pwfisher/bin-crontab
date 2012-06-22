@@ -13,8 +13,6 @@
  *	@package
  */
 
-require_once "../../fct/class.db.php";
-
 class crontab{
 	
 	var $interval=NULL;
@@ -37,6 +35,8 @@ class crontab{
 	 */
 	function __construct($dir=NULL, $filename=NULL, $crontabPath=NULL){
 		global $database;
+		
+		$this->filename = $filename=dirname(__FILE__).DIRECTORY_SEPARATOR.$this->filename;
 		
 		// create table if not existant
 		$this->db = $database;

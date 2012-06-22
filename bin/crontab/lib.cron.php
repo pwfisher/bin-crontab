@@ -1,5 +1,6 @@
 <?php
-//echo getcwd() . "\n";
+
+chdir(dirname(__FILE__));
 chdir("../../");
 //echo getcwd() . "\n";
 
