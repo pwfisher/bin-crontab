@@ -27,10 +27,13 @@ if (isset($_REQUEST['delete'])) {
 	
 	$crontab->saveCron($cron_interval, $cron_command, $cron_ID, $cron_name, $cron_details, $cron_email);
 	$crontab->saveCrontab();
+	$crontab->addToCrontab();
 	header("Location: index.php");
 }
 
 ?>
+
+<a href="/bin/index.php" >&lt; Back</a><br />
 
 <table><tr><td valign="top" width="50%">
 
@@ -43,7 +46,7 @@ if (isset($_REQUEST['delete'])) {
     <div class="box">
       <h2>File Output [<a href="index.php?clean">Clean</a>] [<a href="index.php?delete">Delete</a>]</h2>
       
-      <div class="content" id="source"><? $crontab->readCrontab(); ?></div>
+      <div class="content" id="source"><? $crontab->readCrontabDir(); ?></div>
     </div>
 
 </td><td valign="top">

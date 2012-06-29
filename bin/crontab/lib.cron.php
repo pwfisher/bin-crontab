@@ -9,19 +9,21 @@ include_once 'fct/class.db.php';
 
 set_time_limit(0);
 
-// Get Passed Vars
+// Get command line Passed Vars
 if (isset($argv) && $argv) {
 	// get vars in unix
 	$args = parseArgs($argv);
 
 	foreach ($args as $arg) {
 		$arg = explode("=", $arg);
-		${$arg[0]} = $arg[1];
+		${$arg[0]} 			= $arg[1];
+		$_GET[$arg[0]] 		= $arg[1];
+		$_REQUEST[$arg[0]] 	= $arg[1];
 	}
 } else {
 	$args = $_REQUEST;
 	foreach ($args as $key => $value) {
-		${$key} = $value;
+		${$key} 			= $value;
 	}
 }
 

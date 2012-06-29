@@ -13,6 +13,15 @@
  *	@package
  */
 
+/*
+Sample:
+
+$cron = new crontab('game.bullbear.crontab');
+$cron->setInterval(date("H", $timestamp).' '.date("i", $timestamp).' '.date("j", $timestamp).' '.date("n", $timestamp).' '.date("Y", $timestamp));
+$cron->setCommand('php public_html/bin/crontab/cron.___.php key='.$value);
+$cron->saveCronFile();
+*/
+
 class crontab{
 	
 	var $interval=NULL;
@@ -37,7 +46,7 @@ class crontab{
 		global $database;
 		
 		//$this->directory = ($dir) ? $dir : dirname(__FILE__).DIRECTORY_SEPARATOR;
-		$this->filename = dirname(__FILE__).DIRECTORY_SEPARATOR.(($filename)?$filename:$this->filename);
+		$this->filename = dirname(__FILE__).DIRECTORY_SEPARATOR.(($filename)?$filename.".crontab":$this->filename);
 		
 		// create table if not existant
 		$this->db = $database;
@@ -266,14 +275,40 @@ class crontab{
 	}
 	
 	/**
+	 *	Read cron dir
+	 *
+	 *	@author	will Farrell	<will.farrell@gmail.com>
+	 *	@access	public
+	 *	@return file lines
+	 */
+	function readCrontabDir($directory = NULL){
+		if ($directory) $this->directory = $directory;
+		else $directory = dirname(__FILE__).DIRECTORY_SEPARATOR;
+		//else $directory = $this->directory = dirname(__FILE__).DIRECTORY_SEPARATOR;
+		
+		
+		$fp = opendir($directory);
+		while($f = readdir($fp)){
+			if( preg_match("#^\.+$#", $f) ) continue; 		// ignore symbolic links
+			
+			$path_info = pathinfo($f);
+			if ($path_info['extension'] == 'crontab'){
+				$this->readCrontab($f);
+			}
+		}
+	
+	}
+	
+	/**
 	 *	Read cron file
 	 *
 	 *	@author	will Farrell	<will.farrell@gmail.com>
 	 *	@access	public
 	 *	@return file lines
 	 */
-	function readCrontab(){
-		$lines = file($this->directory.$this->filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	function readCrontab($filename){
+		if (!$filename) $filename = $this->filename;
+		$lines = file($this->directory.$filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 		//$data = file_get_contents($this->directory.$this->filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 		//var_dump($lines);
 		//$lines = explode("\n", $data);
