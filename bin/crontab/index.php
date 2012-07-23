@@ -22,7 +22,7 @@ if (isset($_REQUEST['delete'])) {
 	$cron_name = addslashes($_REQUEST['cron_name']);
 	$cron_details = addslashes($_REQUEST['cron_details']);
 	$cron_interval = $_REQUEST['cron_interval'];
-	$cron_command = $_REQUEST['cron_command'];
+	$cron_command = addslashes($_REQUEST['cron_command']);
 	$cron_email = $_REQUEST['cron_email'];
 	
 	$crontab->saveCron($cron_interval, $cron_command, $cron_ID, $cron_name, $cron_details, $cron_email);

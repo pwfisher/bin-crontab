@@ -17,7 +17,13 @@
 Sample:
 
 $cron = new crontab('game.bullbear.crontab');
-$cron->setInterval(date("H", $timestamp).' '.date("i", $timestamp).' '.date("j", $timestamp).' '.date("n", $timestamp).' '.date("Y", $timestamp));
+$cron->setInterval(
+	(date("i", $timestamp)+1).' '.
+	date("G", $timestamp).' '.
+	date("j", $timestamp).' '.
+	date("n", $timestamp).' '.
+	date("N", $timestamp)
+);
 $cron->setCommand('php public_html/bin/crontab/cron.___.php key='.$value);
 $cron->saveCronFile();
 */
@@ -292,7 +298,7 @@ class crontab{
 			if( preg_match("#^\.+$#", $f) ) continue; 		// ignore symbolic links
 			
 			$path_info = pathinfo($f);
-			if ($path_info['extension'] == 'crontab'){
+			if (isset($path_info['extension']) && $path_info['extension'] == 'crontab'){
 				$this->readCrontab($f);
 			}
 		}
@@ -308,6 +314,7 @@ class crontab{
 	 */
 	function readCrontab($filename){
 		if (!$filename) $filename = $this->filename;
+		echo "<b>$filename</b><br />\n";
 		$lines = file($this->directory.$filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 		//$data = file_get_contents($this->directory.$this->filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 		//var_dump($lines);
@@ -320,9 +327,8 @@ class crontab{
 					$return .= htmlspecialchars($line) . "<br />\n";
 			}
 			echo $return;
-		} else {
-			return false;
 		}
+		echo "<br />\n";
 	}
 	
 	
