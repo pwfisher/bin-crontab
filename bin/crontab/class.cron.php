@@ -371,7 +371,7 @@ class crontab{
 		$p = mysql_fetch_assoc($r);
 		?>
 		<div id="show<? echo $p['cron_ID']; ?>" style="display:block" onclick="this.style.display = 'none'; getElementById('edit<? echo $p['cron_ID']; ?>').style.display = 'block';">
-		<? echo "<b>".stripslashes($p['cron_name']).":</b> ".stripslashes($p['cron_interval'])." ".urldecode($p['cron_command']); //".$p['cron_ID'].")  ?></div>
+		<? echo "<b>".stripslashes($p['cron_name']).":</b> ".stripslashes($p['cron_interval'])." ".$p['cron_command']; //".$p['cron_ID'].")  ?></div>
 		<div id="edit<? echo $p['cron_ID']; ?>" style="display:none;">
         <form method="post" action="index.php?save">
 		<table cellpadding="0" cellspacing="0">
