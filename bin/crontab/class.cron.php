@@ -389,7 +389,7 @@ class crontab{
 			</td></tr>
 			<tr>
 			<td colspan="6">
-				<textarea class="longField" name="cron_command" rows="3" onFocus="this.rows=6" onBlur="this.rows=3"><? echo urldecode($p['cron_command']); ?></textarea>
+				<textarea class="longField" name="cron_command" rows="3" onFocus="this.rows=6" onBlur="this.rows=3"><? echo $p['cron_command']; ?></textarea>
 			</td></tr>
 			<tr><td colspan="6">
 				<span class="label">Command</span>
@@ -426,11 +426,11 @@ class crontab{
 		global $database;
 		
 		$s = array('cron_ID' => $cron_ID,
-							'cron_name' => $cron_name, 
-							'cron_details' => $cron_details,
-							'cron_interval' => $cron_interval,
-							'cron_command' => $cron_command, 
-							'cron_email' => $cron_email);
+				'cron_name' => $cron_name, 
+				'cron_details' => $cron_details,
+				'cron_interval' => $cron_interval,
+				'cron_command' => $cron_command, 
+				'cron_email' => $cron_email);
 		$database->insert('crontab', $s);
 	}
 	
@@ -472,7 +472,7 @@ class crontab{
 		}
 		$this->saveCronHeader($header);
 		$this->setInterval($interval);
-		$this->setCommand(urldecode($command));
+		$this->setCommand($command); // urldecode(
 		$this->saveCronFile();
 	}
 	
