@@ -153,8 +153,9 @@ if (isset($_REQUEST['delete'])) {
         <a href="http://www.cyberciti.biz/faq/how-do-i-add-jobs-to-cron-under-linux-or-unix-oses/" target="_blank">More Details</a><br /><br />
         <b>Samples</b><br />
         */20 * * * * /usr/bin/lynx -source http://rfqs.ca/fct/cron/cron.tender_seo<br />
-        0 5,20 * * * mysqldump -urfqs_user -prfqs12345 --all-databases | gzip -9 > backups/database/`date +\%F_\%T`.sql.gz<br />
+        0 5,20 * * * mysqldump -uUSERNAME -pPASSWORD --all-databases | gzip -9 > backups/database/`date +\%F_\%T`.sql.gz<br />
         // %Y-%m-%d %H:%M<br />
+        find -newermt yesterday -ls | mail -s "Changed Files Report" mail@example.com<br />
         php admin/plugins/run.AB.php<br />
         wget http://domain.com/<br />
         cd ../ &amp;&amp; php index.php<br />
